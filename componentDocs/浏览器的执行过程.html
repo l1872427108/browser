@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>浏览器的执行过程 | 浏览器</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/browser/assets/css/0.styles.a14fe33a.css" as="style"><link rel="preload" href="/browser/assets/js/app.9d8b2b9f.js" as="script"><link rel="preload" href="/browser/assets/js/2.c6ab72a1.js" as="script"><link rel="preload" href="/browser/assets/js/35.e0ef97a3.js" as="script"><link rel="prefetch" href="/browser/assets/js/10.585245e1.js"><link rel="prefetch" href="/browser/assets/js/11.5aae5444.js"><link rel="prefetch" href="/browser/assets/js/12.71269f1a.js"><link rel="prefetch" href="/browser/assets/js/13.0a7f30a4.js"><link rel="prefetch" href="/browser/assets/js/14.45a1a3a7.js"><link rel="prefetch" href="/browser/assets/js/15.ed81d5cf.js"><link rel="prefetch" href="/browser/assets/js/16.cc7e2e9b.js"><link rel="prefetch" href="/browser/assets/js/17.db4ea61b.js"><link rel="prefetch" href="/browser/assets/js/18.e3ae8c8b.js"><link rel="prefetch" href="/browser/assets/js/19.bfba4f3f.js"><link rel="prefetch" href="/browser/assets/js/20.c6b94b86.js"><link rel="prefetch" href="/browser/assets/js/21.1e59a022.js"><link rel="prefetch" href="/browser/assets/js/22.654197cf.js"><link rel="prefetch" href="/browser/assets/js/23.58ff0792.js"><link rel="prefetch" href="/browser/assets/js/24.aea860a9.js"><link rel="prefetch" href="/browser/assets/js/25.26a87bae.js"><link rel="prefetch" href="/browser/assets/js/26.00a97756.js"><link rel="prefetch" href="/browser/assets/js/27.d3683b0a.js"><link rel="prefetch" href="/browser/assets/js/28.deb80b65.js"><link rel="prefetch" href="/browser/assets/js/29.9ad843c1.js"><link rel="prefetch" href="/browser/assets/js/3.2ac56f48.js"><link rel="prefetch" href="/browser/assets/js/30.707d3269.js"><link rel="prefetch" href="/browser/assets/js/31.3c38d117.js"><link rel="prefetch" href="/browser/assets/js/32.c449df23.js"><link rel="prefetch" href="/browser/assets/js/33.608e131b.js"><link rel="prefetch" href="/browser/assets/js/34.5d801168.js"><link rel="prefetch" href="/browser/assets/js/36.12fa7af7.js"><link rel="prefetch" href="/browser/assets/js/37.b611c7e3.js"><link rel="prefetch" href="/browser/assets/js/38.5adc6f54.js"><link rel="prefetch" href="/browser/assets/js/39.eafb2e3f.js"><link rel="prefetch" href="/browser/assets/js/4.b7d0708f.js"><link rel="prefetch" href="/browser/assets/js/40.e1d0ac06.js"><link rel="prefetch" href="/browser/assets/js/41.bff30e89.js"><link rel="prefetch" href="/browser/assets/js/42.f57de2b4.js"><link rel="prefetch" href="/browser/assets/js/43.3eb2033e.js"><link rel="prefetch" href="/browser/assets/js/44.7049f3ae.js"><link rel="prefetch" href="/browser/assets/js/45.560dd0fe.js"><link rel="prefetch" href="/browser/assets/js/46.61f9c03b.js"><link rel="prefetch" href="/browser/assets/js/47.343cd03f.js"><link rel="prefetch" href="/browser/assets/js/48.6eaca372.js"><link rel="prefetch" href="/browser/assets/js/5.9e2f4ca7.js"><link rel="prefetch" href="/browser/assets/js/6.c7b54f12.js"><link rel="prefetch" href="/browser/assets/js/7.8a5eaf01.js"><link rel="prefetch" href="/browser/assets/js/8.c4154854.js"><link rel="prefetch" href="/browser/assets/js/9.400f3a74.js">
+    <link rel="stylesheet" href="/browser/assets/css/0.styles.a14fe33a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/browser/" class="home-link router-link-active"><!----> <span class="site-name">浏览器</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/browser/" class="nav-link">
+  html
+</a></div><div class="nav-item"><a href="https://github.com/l1872427108/uui" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="https://www.npmjs.com/package/uu-uui" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Npm
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/browser/" class="nav-link">
+  html
+</a></div><div class="nav-item"><a href="https://github.com/l1872427108/uui" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="https://www.npmjs.com/package/uu-uui" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Npm
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/browser/componentDocs/Chrome架构.html" class="sidebar-link">Chrome 架构</a></li><li><a href="/browser/componentDocs/输入URL到加载经历了什么 --- 网络.html" class="sidebar-link">输入URL到加载经历了什么 --- 网络</a></li><li><a href="/browser/componentDocs/输入URL到加载经历了什么 --- 解析.html" class="sidebar-link">输入URL到加载经历了什么 --- 解析</a></li><li><a href="/browser/componentDocs/输入URL到加载经历了什么 --- 渲染.html" class="sidebar-link">输入URL到加载经历了什么 --- 渲染</a></li><li><a href="/browser/componentDocs/同一站点.html" class="sidebar-link">同一站点(输入URL网络篇补充)</a></li><li><a href="/browser/componentDocs/回流.html" class="sidebar-link">重排、重绘和合成</a></li><li><a href="/browser/componentDocs/阻塞.html" class="sidebar-link">从渲染流水线看html、css、JavaScript的阻塞</a></li><li><a href="/browser/componentDocs/defer、async.html" class="sidebar-link">defer、async（阻塞章节优化JavaScript点）</a></li><li><a href="/browser/componentDocs/DOM树构建过程.html" class="sidebar-link">DOM树构建过程</a></li><li><a href="/browser/componentDocs/浏览器缓存.html" class="sidebar-link">浏览器缓存</a></li><li><a href="/browser/componentDocs/浏览器页面如何工作.html" class="sidebar-link">浏览器页面如何工作</a></li><li><a href="/browser/componentDocs/页面生命周期.html" class="sidebar-link">页面生命周期</a></li><li><a href="/browser/componentDocs/跨域解决.html" class="sidebar-link">跨域解决方案</a></li><li><a href="/browser/componentDocs/垃圾回收.html" class="sidebar-link">垃圾回收</a></li><li><a href="/browser/componentDocs/内存泄露.html" class="sidebar-link">内存泄露</a></li><li><a href="/browser/componentDocs/前端存储.html" class="sidebar-link">前端存储</a></li><li><a href="/browser/componentDocs/存储超过限制.html" class="sidebar-link">存储超过限制</a></li><li><a href="/browser/componentDocs/识别浏览器类型.html" class="sidebar-link">识别浏览器类型</a></li><li><a href="/browser/componentDocs/外部资源的加载事件.html" class="sidebar-link">资源加载</a></li><li><a href="/browser/componentDocs/Chrome开发者工具.html" class="sidebar-link">Chrome开发者工具</a></li><li><a href="/browser/componentDocs/网络面板.html" class="sidebar-link">网络面板</a></li><li><a href="/browser/componentDocs/首屏优化.html" class="sidebar-link">首屏加载</a></li><li><a href="/browser/componentDocs/CSS动画和JS动画.html" class="sidebar-link">CSS动画和JavaScript动画</a></li><li><a href="/browser/componentDocs/CDN.html" class="sidebar-link">CDN</a></li><li><a href="/browser/componentDocs/资源优化.html" class="sidebar-link">资源优化</a></li><li><a href="/browser/componentDocs/浏览器安全.html" class="sidebar-link">浏览器安全</a></li><li><a href="/browser/componentDocs/XSS攻击.html" class="sidebar-link">XSS 攻击</a></li><li><a href="/browser/componentDocs/CSRF 攻击.html" class="sidebar-link">CSRF 攻击</a></li><li><a href="/browser/componentDocs/浏览器内核与引擎.html" class="sidebar-link">浏览器内核与引擎</a></li><li><a href="/browser/componentDocs/V8执行原理和优化策略.html" class="sidebar-link">JavaScriot(V8) 执行原理</a></li><li><a href="/browser/componentDocs/V8优化小知识点.html" class="sidebar-link">V8优化小知识点</a></li><li><a href="/browser/componentDocs/v8对数组的优化.html" class="sidebar-link">V8数组的动态扩容以及对数组优化</a></li><li><a href="/browser/componentDocs/从Chrome渲染一帧的角度来做优化.html" class="sidebar-link">从Chrome渲染一帧的角度来做优化</a></li><li><a href="/browser/componentDocs/Chrome的Audits面板.html" class="sidebar-link">Chrome的Audits面板</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="浏览器的执行过程"><a href="#浏览器的执行过程" class="header-anchor">#</a> 浏览器的执行过程</h1> <p>从输入URL到加载，我们可以看出来页面的渲染。
+这个是从Chrome浏览器的架构上来分析的。 进程和线程上.</p> <p>我们知道了什么时候去下载交给什么进程。</p> <p>但是对于 html、css、js下载回来来解析不是进程来做的。</p> <p>是浏览器内核来帮助我们解析的。</p> <ul><li>Gecko</li> <li>Trident IE4-IE11 ,  Edge是用的Blink.</li> <li>Webkit 苹果基于KHTML, Safari、Google之前也在使用。</li> <li>Blink: 是 Webkit 的一个分支，Google开发，应用于 Google、Edge、Opera等</li></ul> <p>浏览器引擎、排版引擎。</p> <p>会对HTML解析，遇到CSS下载，遇到JS加载js代码.</p> <h3 id="js-代码"><a href="#js-代码" class="header-anchor">#</a> js 代码</h3> <p>是由js引擎来执行的。</p> <p>高级语言，需要被CPU来执行。</p> <p>CPU只认识自己的指令集</p> <h3 id="js引擎"><a href="#js引擎" class="header-anchor">#</a> js引擎</h3> <ul><li>SpiderMonkey: js作者开发。</li> <li>Chakra: 微软开发，IE。</li> <li>JavaScriptCore: Webkit中内置的，Apple公司开发。</li> <li>V8: Google开发的js引擎。
+...</li></ul> <h3 id="v8引擎"><a href="#v8引擎" class="header-anchor">#</a> V8引擎</h3> <p>用C++，一百多万行代码写成，V8可以独立运行，潜入能够执行js。</p> <h3 id="v8架构图"><a href="#v8架构图" class="header-anchor">#</a> V8架构图</h3> <p>js源代码 ---&gt; Parse  ----&gt; AST</p> <p>可以将抽象语法书转为字节码</p> <p>AST ----&gt; Ignition ---&gt; bytecode ---&gt; 执行</p> <h3 id="转为字节码"><a href="#转为字节码" class="header-anchor">#</a> 转为字节码</h3> <p>js跑在什么环境下不一定。 windows/mac/linux 的浏览器上面。</p> <p>跑在不同的环境有不同的CPU架构。 能够执行的机器指令是不一样的。</p> <p>V8会将字节码转位不同平台的机器码。</p> <h3 id="优化"><a href="#优化" class="header-anchor">#</a> 优化</h3> <p>TuboFan 来收集执行信息， 标记 hot 热点代码。</p> <p>TuboFan ----&gt; 优化后机器码  ---&gt; 运行结果。</p> <p>Deoptimization 反优化。 下次热点代码的执行操作不一样的。</p> <h3 id="内核和v8"><a href="#内核和v8" class="header-anchor">#</a> 内核和V8</h3> <p>Blink 将下载源码讲给 V8，Stream获取到源码进行编码转换。</p> <p>Scaaner 进行词法分析, 词法分析会将代码转为 tokens。</p> <p>Tokens 经过Parser和PreParser, 会被转为 AST 树.</p> <p>一次性解析，会影响性能。</p> <p>PreParser称为预解析，V8引擎实现了Lazy Parsing(延迟解析)的方案。将不必要的函数进行预解析。函数调用在进行全量解析。</p> <h3 id="js执行前的工作"><a href="#js执行前的工作" class="header-anchor">#</a> JS执行前的工作</h3> <p>Parse 解析的时候就会创建一个 GlobalObject = {}   GO</p> <p>var globalObject = {
+String: &quot;类&quot;,
+Date: '类',
+setTimeout: &quot;函数&quot;,
+window: globalObject,
+name: undefined
+}</p> <p>window.window.window</p> <p>会将属性放到GO上。</p> <h3 id="运行代码"><a href="#运行代码" class="header-anchor">#</a> 运行代码</h3> <p>V8执行代码，内部会有一个执行上下文栈。</p> <p>全局代码，为了全局代码能够正常的执行，会创建一个全局上下文。</p> <p>当前上下文的 VO 变量对象  会指向 GO.</p> <p>开始执行代码 VO 找到 GO，修改 GO 的值。</p> <hr> <p>有函数情况</p> <p>编译到函数，并不会执行，而是先会开辟一块内存空间 0xa00， GlobalObject 的 foo 指向 0xa00 地址。</p> <p>0xa00 里面会包含 [[scope]]: parent scope  、 函数执行代码块</p> <p>执行代码 foo() ，就会找到foo的地址，在上下文栈中先创建一个函数执行上下文。FEC.</p> <p>有了执行上下文 会创建一个VO。  VO:AO    AO = {}会被销毁.</p> <p>AO(Activation Object)活跃对象：来收集函数内部参数变量。</p> <p>创建一个AO,  AO = {name: undefined, m: undefined, n: undefined}</p> <p>执行代码，就会去 VO 中查找  ----&gt; AO</p> <p>执行完之后就会弹出去。 没有指向 AO 就会被销毁掉</p> <h3 id="变量查找规则"><a href="#变量查找规则" class="header-anchor">#</a> 变量查找规则</h3> <p>当前VO中没有的话。</p> <p>查找变量的查找路径是沿着作用域链查找</p> <p>VO、scope chain：VO + parent scope</p> <p>函数被编译的时候就会确定[[scope]]</p> <h3 id="函数嵌套"><a href="#函数嵌套" class="header-anchor">#</a> 函数嵌套</h3> <h3 id="变量环境和记录"><a href="#变量环境和记录" class="header-anchor">#</a> 变量环境和记录</h3> <p>AO\GO
+VO:GO
+VO:AO<br>
+早期 ECMASCript5 以前</p> <p>每创建一个执行上下文都会关联到变量对象上VO,</p> <p>如果声明变量或函数会作为属性添加到VO上,</p> <p>对于函数来说，参数也会被添加到VO上.</p> <hr> <p>ECMASCript5 之后</p> <p>每创建一个执行上下文都会关联到变量环境中，</p> <p>在执行代码中变量和函数的声明会作为环境记录添加到变量环境中。</p> <p>VE：enerentcoment recode   一条环境记录  可以使用对象还是Map都可以</p> <h3 id="内存管理"><a href="#内存管理" class="header-anchor">#</a> 内存管理</h3> <p>不管什么样的编程语言，在代码执行过程中都是需要分配内存的，不同的是
+某些编程语言需要我们手动的管理内存</p> <p>代码  磁盘 ---&gt; 内存  ---&gt; CPU</p> <p>执行过程中会继续开辟空间</p> <p>变量和函数 的分配方式：</p> <ol><li>基本数据类型 栈</li> <li>复杂数据类型 堆</li></ol> <p>Js的内存结构</p> <p>现在大部分的编程语言有垃圾回收机制   GC
+对于不再使用的对象，就会被回收, 释放更多的内存空间。
+JavaScript 的js引擎也有垃圾回收器</p> <p>GC算法:</p> <ol><li>引用计数
+retain count: 0      +1     +1  ----&gt;  2   本身栈中有1  3
+info.friend = null        -1
+变为0 就会被释放</li></ol> <p>存在问题： 弊端循环引用</p> <p>var obj1 = {friend:obj2}
+var obj2 = {friend:obj1}</p> <p>obj.friend = null;</p> <p>一直不会清空 就会造成内存泄露</p> <ol start="2"><li>标记清除  可以很好的解决循环引用的问题
+设置一个根对象 root object, 从根开始查找所有的对象</li></ol> <p>js引擎采用的就是标记清除算法，当然类似V8引擎为了进行更好的优化，在算法的
+细节上也会有不同的算法。</p> <hr> <p>JS中函数是一等公民
+参数传递、返回值</p> <p>高阶函数：把一个函数如果接受另一个函数作为参数，或者返回一个函数就叫高结函数</p> <p>reduce 累加
+[10, 5, 11, 100, 55]
+var total = 0;
+for (var i = 0; i &lt; nums.length; i++) {
+total += nums[i];
+}
+prevValue 0    item 10
+prevValue 10   item 5
+prevValue</p> <p>5次</p> <p>nums.reduce((prevValue, item) =&gt; {
+return preVal + item;
+}, 0);</p> <h3 id="闭包"><a href="#闭包" class="header-anchor">#</a> 闭包</h3> <p>Js中闭包的定义: 在计算机科学和js中</p> <p>头等函数：函数作为第一公民</p> <p>Js -&gt; 对象 存储了一个函数和关联的环境, 相当于一个符号查找表</p> <p>当捕捉闭包的时候，它的自由变量会在捕捉时确定，即使脱离捕捉的上下文，能正常运行。</p> <p>闭包：函数 + 可以访问的自由变量</p> <p>闭包是一个结构体，存储了函数和一个关联的环境</p> <p>实现词法绑定的一种技术 词法解析的时候就已经确定了作用域</p> <p>可以访问和必须访问</p> <h3 id="为什么ao没有销毁"><a href="#为什么ao没有销毁" class="header-anchor">#</a> 为什么AO没有销毁?</h3> <ol><li>Foo: AO 没有销毁？</li> <li>闭包为什么存在内存泄露</li></ol> <p>函数执行过程的内存？</p> <p>堆内存中</p> <p>GO 提前创建好</p> <p>执行栈  ECStack</p> <p>全局代码 全局执行执行上下文</p> <hr> <p>内存变量
+可以通过性能分析工具查看内存变化。</p> <p>销毁 没有引用的自由变量 AO 中是会被销毁的  debugger 和控制台打印查看当前作用域</p> <hr> <h3 id="为什么需要this"><a href="#为什么需要this" class="header-anchor">#</a> 为什么需要this</h3> <p>java，c++, this只会出现在类的方法中。
+但是js中的this更加灵活，无论是它出现的位置还是代表的含义.</p> <p>开发中，没有 this ，很多问题也有解决方案； 但是没有this编写代码变得不灵活</p> <ol><li>this在全局作用于指向
+浏览器：window （globalObject）
+Node环境 {}   文件模块，加载-&gt;编译-&gt;放到一个函数-&gt;执行函数.apply({}) this指向空对象</li></ol> <p>函数中使用：
+函数被调用时，创建一个执行上下文
+VO:
+scopechain:
+this: 动态绑定  执行的时候才能确定</p> <p>this指向和所处的位置是没有关系的。
+this根函数被调用的方式是有关的。</p> <p>默认绑定
+隐式绑定
+显示绑定
+new绑定</p> <p>什么独立的执行，没有调用的主体</p> <p>隐式绑定。
+调用方式是通过某个对象进行调研的。
+执行上下文 this 绑定 就是绑定到这个对象</p> <p>函数被调起来的时候，函数就有 this</p> <p>object 对象会被 js 引擎绑定到 fn 函数中 this 里面
+必须在调用的对象内部有一个对函数的引用。
+通过这个引用，间接的将this绑定到了这个对象上。</p> <p>显示绑定
+不希望在对象内部包含这个函数的引用，</p> <p>call/apply 可以指定 this 的绑定对象</p> <p>call/apply 的区别</p> <p>sum(10, 20);</p> <p>sum.call('call', 20, 30, 40);</p> <p>sum.apply('apply', [20, 30, 40])</p> <p>call 和 apply 在执行函数时，可以明确的绑定 this。 这个绑定规则可以称为显示绑定。</p> <p>foo.call('aaa');
+foo.call('aaa');</p> <p>var newFoo = foo.bind('aaa');</p> <p>内置函数绑定</p> <p>new绑定
+js 中函数可以当作类的构建函数来使用。使用 new 关键字
+创建一个全新的对象，这个新对象会绑定到函数调用的 this 上。
+返回这个对象</p> <p>var p1 = new Person('www', 'red');
+console.log();</p> <p>VO:
+scope Chain
+this Binging: obj</p> <p>优先级</p> <hr> <p>js: 10 3.14 -&gt; number 8byte
+小的数字类型，在 V8中称为 Sim。小数字 2的32次</p> <p>函数的 this 分析
+函数内部调用回调函数和内部的调用方式有关</p> <p>const boxDiv = ;
+boxDiv.onClick = function() {
+console.log(this);
+}
+boxDiv.onClick()</p> <p>boxDiv.addEventListener('click', function () {
+console.log(this); // boxDiv
+})
+boxDiv.addEventListener('click', function () {
+console.log(this); // boxDiv
+})
+boxDiv.addEventListener('click', function () {
+console.log(this);  // boxDiv
+})
+收集起来回调
+fn.call(boxDiv)</p> <p>数组 forEach/map/filter/find
+var nmaes = ['abc', 'cba']
+names.forEach(function() {
+console.log(this);  // window 说明就是独立函数调用
+如果想要改变this指向
+}, 'abc');</p> <p>绑定规则优先级
+比如同时有多个优先级采用哪种规则</p> <ol><li><p>默认规则优先级最低</p></li> <li><p>显示绑定优先级高于隐式绑定</p></li> <li><p>call/apply 的优先级高于隐式绑定</p></li> <li><p>bind 高于隐式绑定</p></li> <li><p>new优先级高于隐式绑定</p></li> <li><p>new优先级高于显示绑定
+new不能和apply/call一起使用
+foo.bind('aaa');
+var obj = new bar();</p></li></ol> <p>bind优先级高于call/apply</p> <p>bind 返回一个新函数，但是执行找到的还是原函数来执行的</p> <p>忽略显示绑定
+null或者undefined 显示绑定会变为全局对象</p> <p>间接函数引用
+(obj1.bar = obj2.bar)()  // 函数的独立调用</p> <p>箭头函数不会绑定 this、arguments 属性</p> <p>箭头函数不能作为构造函数来使用的 与new使用会抛出错误</p> <p>高阶函数在使用时，也可以传入箭头函数</p> <p>箭头函数简写方法：
+参数只有一个： item =&gt; {}
+如果执行体只有一行代码 item =&gt; item.id = id
+并且会默认将这行代码的结果返回</p> <p>简写三 如果箭头函数
+var bar = () =&gt; ({name: &quot;why&quot;})  当成一个整体</p> <p>应用场景</p> <hr> <p>实现 apply、call、bind
+具体内部是 C++ 实现的，可以用 js 来模拟
+实现的是练习函数、this、调用关系、不会过度考虑一些边界情况 edge case
+Vue/React/webpack</p> <p>Function.prototype.call = function(thisArg, ...args) {
+1. 可以在这里执行调用的那个函数 foo
+想办法拿到前面的对象  我这是一个函数， 谁调用我就是谁
+并且保证通用性 能任意拿到前面的函数
+var fn = this;</p> <div class="language- extra-class"><pre><code>1.5 转换对象  防止它传入的是非对象类型
+Number/Boolean/String ---&gt; Object
+thisArg = thisArg ? Object(thisArg) : window;
+
+2. 调用需要被执行的函数
+thisArg.fn = fn;
+var result = thisArg.fn(...args)
+
+3. 删掉
+delete thisArg.fn
+
+return result;
+</code></pre></div><p>}</p> <p>展开运算符 spread
+var newNames = [...names]</p> <p>Function.prototype.apply = function(thisArg, argArray) {
+var fn = this;</p> <div class="language- extra-class"><pre><code>thisArg = thisArg == null ? Object(thisArg) : window;
+
+2. 调用需要被执行的函数
+thisArg.fn = fn;
+var result
+&lt;!-- if (!argArray) {  // 没有参数
+    result = thisArg.fn()
+} else { // 有参数
+    result = thisArg.fn(...argArray)
+} --&gt;
+
+argArray = argArray ? argArray : []  // 三元
+argArray = argArray || [];  // 逻辑或
+result = thisArg.fn(...argArray)
+
+3. 删掉
+delete thisArg.fn
+
+return result;
+</code></pre></div><p>}
+function foo(num) {
+return num;
+}</p> <p>有参数和没有参数</p> <hr> <p>js函数式编程
+纯函数---&gt; 写过、react
+react 好用灵活</p> <p>steup -&gt; 函数 -&gt; 便携很多其他逻辑 -&gt; 更接近原声开发 -&gt; 函数</p> <p>纯函数：此函数在相同的输入值时</p> <ol><li>相同输入值，产生相同输出</li> <li>输出和输入值意外的其他信息无关   全局变量/I/O设备</li> <li>不能有语意上客观察的函数副作用, 比如 触发事件，使输出设备输出，或改变输出值意外事件的内容</li></ol> <p>确定的输入，一定会产生确定的输出。
+函数在执行过程中，不能产生副作用</p> <p>副作用：在执行一个函数时，除了返回函数值之外，还对调用函数产生了附加影响，比如修改了全局变量，修改参数或者外部的存储。</p> <p>存粹的函数式编程不允许有副作用。 副作用往往是产生 bug 的 温床。</p> <p>names.slice()
+var newNames1 = names.slice(0, 3);
+slice 只要传入一个 start/end ,对于同一个数组来说，会返回确定的值。
+slice 函数不会修改原来的数组</p> <p>splice 相同的输入也有相同的输出
+但是会修改数组对象本身，修改这个操作就是产生的副作用</p> <p>function foo(num1, num2) {
+return num1 * 2 + num2 * num2
+}</p> <p>function bar() {</p> <p>}</p> <p>function baz(info) {
+info.age = 100;
+}</p> <p>var obj = {name: &quot;why&quot;, age: 18};
+baz(obj);
+不是存函数，传入参数之后，内部将参数改变了。obj就不是原来的了。</p> <p>function test(info) {
+return {
+...info,
+age: 100
+}
+}
+test 是一个纯函数</p> <p>非常有用
+React 的函数组建（类组建）
+function HelloWorld(props) {
+// 不是存函数
+props.info = {}
+props.info.name = 'why'
+}
+&lt;HelloWorld info=&quot;{}&gt;
+console.log(info);  // 可能就会意外的修改</p> <p>function printInfo(info) {
+// 可以看作是纯函数
+console.log(info.name);
+}</p> <p>纯函数的优势：</p> <ol><li>可以安心编写和使用</li> <li>只需要关心这个函数参数和返回值就可以</li> <li>只需要单纯实现自己的业务逻辑，不需要关心传入的内容。</li></ol> <p>React 非常灵活，所有React组建必须像纯函数一样保护它们的props不被修改。</p> <p>var info = {}
+function foo() {
+return {...obj, name: 'why'}
+}
+foo(info);</p> <p>function setCache(key, info) {
+localStorage.setItem(key, info)
+}</p> <p>纯函数是优势，但不是规定</p> <p>js 柯里化
+在计算机科学中，颗粒化 currying</p> <p>把接收多个参数的函数，变成接受一个单一参数的函数，返回接受余下的参数，返回结果是一个新的函数的技术。</p> <p>如果固定某些参数，将得到剩余参数的一个函数。</p> <p>只传递给函数一部分参数来调用它，让它返回一个函数去处理剩余的参数。
+这个过程就称为颗粒化。</p> <p>function add(x, y, z) {
+return x + y + z;
+}
+add(10, 20, 30)</p> <p>function add(x) {
+return function(y) {
+return function(z) {
+return x + y + z;
+}
+}
+}
+add(10)(20)(30)</p> <p>function add2 = x =&gt; y =&gt; z =&gt; x+y+z</p> <p>转换过程是颗粒化</p> <p>颗粒化的作用：
+在函数式编程中，我们希望一个个函数处理的问题尽可能单一，而不是将一大堆的处理过程交给一个函数来处理</p> <p>单一职责原则
+面向对象 -&gt; 类 -&gt; 尽可能完成一件事
+class App{
+runApp() {</p> <div class="language- extra-class"><pre><code>}
+</code></pre></div><p>}</p> <p>我们就可以将每次传入的参数在单一的函数中进行处理，处理完然后交给下一个函数处理</p> <p>function add(x, y, z) {
+x = x * 2
+y = y * 2
+z = z * 2
+return x + y + z;
+}
+边的非常容积</p> <p>function sum(x) {
+x = x + 2</p> <div class="language- extra-class"><pre><code>return function(y) {
+    y = y * 2
+    
+    return function(z) {
+        z = z * z
+
+        return x + y + z
+    }
+}
+</code></pre></div><p>}</p> <p>创建了三个函数，不能被及时销毁。
+function sum(x) {
+return x * 2
+}
+function m(y) {
+return y * 2
+}
+function s(z) {
+return z * z;
+}
+sum(10) + m(20) + n(30)
+每一个函数处理问题单一
+console.log(sum(10)(20)(30))</p> <p>逻辑复用
+function sum(m, n) {</p> <p>}
+在程序中，把 5 和 另外一个数字相加
+console.log(5, 10);</p> <p>function makeAdder(count) {
+return function (num) {
+return count + num;
+}
+}
+var adder5 = makeAdder(5)
+adder5(10)
+adder5(15)
+adder5(20)</p> <p>function (date, type, message) {
+console.log(``)
+}</p> <p>function hyCurring(fn) {
+function curried(...args) {
+// 判断已经接受道的参数个数和已经接受的是否一致
+if (args.length &gt;= fn.length) {
+return fn.apply(this, args)
+} else {
+return function(...args2) {
+curried.apply(this, [...args, ...args2]);
+}
+}
+}</p> <div class="language- extra-class"><pre><code>return curried;
+</code></pre></div><p>}</p> <p>var m = hyCurring(add);
+m(10, 20, 30, 40)  // 相当于才是 fn fn的this指向也要改变  m 来替代 fn  m.call() 我的绑定你fn要遵循</p> <p>m(10)</p> <hr> <p>组合函数：是在 js 开发过程中一种对函数的使用技巧、模式：
+对函数的组合，就称为组合函数</p> <p>组合函数的理解：
+function double(num) {
+return num * 2
+}
+function square(num) {
+return num ** 2
+}
+var count = 10;
+var result = square(double(count))</p> <p>var num = 100;
+var result = square(double(num))</p> <p>组合 double 和 square</p> <p>function composeFn(m, n) {
+return function(count) {
+return n(m(count));
+}
+}
+var newFn = composeFn(double, square);
+newFn(10)</p> <p>function hyCompose(...fns) {
+var length = fns.length;
+for (var i = 0; i &lt; length; i++) {
+if (typeof fns[i] !== 'function') {
+throw new TypeError('Expected arguments are function')
+}
+}
+function compose(...args) {
+var index = 0;
+var result = length ? fns[index].apply(this, args) : args
+while (++index &lt; length) {
+result = fns[index].call(this, result)
+}
+return result;
+}
+return compose;
+}</p> <p>function double(m) {
+return m * 2
+}
+function square(n) {
+return n ** 2
+}
+var newFn = hyCompose(double, square)
+newFn(10, 20, 30)</p> <p>newFn(10, 20, 30)</p> <hr></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/browser/assets/js/app.9d8b2b9f.js" defer></script><script src="/browser/assets/js/2.c6ab72a1.js" defer></script><script src="/browser/assets/js/35.e0ef97a3.js" defer></script>
+  </body>
+</html>
